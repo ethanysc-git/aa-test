@@ -7,46 +7,45 @@ import { EthereumSepolia } from "@particle-network/chains";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaGoogle } from "react-icons/fa";
 
-const config = {
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  clientKey: process.env.REACT_APP_CLIENT_KEY,
-  appId: process.env.REACT_APP_APP_ID,
-};
-
-const particle = new ParticleNetwork({
-  ...config,
-  chainName: EthereumSepolia.name,
-  chainId: EthereumSepolia.id,
-  wallet: { displayWalletEntry: true, uiMode: "dark" },
-});
-
-particle.setERC4337(true);
-
-const handleLogin = async (preferredAuthType) => {
-  try {
-    const user = !particle.auth.isLogin()
-      ? await particle.auth.login({ preferredAuthType })
-      : particle.auth.getUserInfo();
-    setUserInfo(user);
-  } catch (error) {
-    console.error(error);
-    setUserInfo(null);
-  }
-};
-
-const handleLogout = async () => {
-  try {
-    await particle.auth.logout();
-    setUserInfo(null);
-  } catch (error) {
-    console.error(error);
-    setUserInfo(null);
-  }
-};
-
 export default function Header() {
   const [userInfo, setUserInfo] = useState(null);
 
+  const config = {
+    projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
+    clientKey: process.env.NEXT_PUBLIC_REACT_APP_CLIENT_KEY,
+    appId: process.env.NEXT_PUBLIC_REACT_APP_APP_ID,
+  };
+
+  const particle = new ParticleNetwork({
+    ...config,
+    chainName: EthereumSepolia.name,
+    chainId: EthereumSepolia.id,
+    wallet: { displayWalletEntry: true, uiMode: "dark" },
+  });
+
+  particle.setERC4337(true);
+
+  const handleLogin = async (preferredAuthType) => {
+    try {
+      const user = !particle.auth.isLogin()
+        ? await particle.auth.login({ preferredAuthType })
+        : particle.auth.getUserInfo();
+      setUserInfo(user);
+    } catch (error) {
+      console.error(error);
+      setUserInfo(null);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await particle.auth.logout();
+      setUserInfo(null);
+    } catch (error) {
+      console.error(error);
+      setUserInfo(null);
+    }
+  };
   return (
     <nav className="bg-heroImage bg-cover bg-center height: 60px p-3 border-b-2 flex flex-row justify-between items-center ">
       <div className="flex-none gap-4 items-center">
@@ -63,7 +62,6 @@ export default function Header() {
           </h1>
         </Link>
       </div>
-
       <div>
         {!userInfo ? (
           <div>
