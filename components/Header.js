@@ -1,15 +1,12 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React, { useEffect, useState } from "react";
-import { useAccount, useBalance } from "wagmi";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Link } from "@chakra-ui/react";
-//
 import { ParticleNetwork } from "@particle-network/auth";
 import { EthereumSepolia } from "@particle-network/chains";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaGoogle } from "react-icons/fa";
-//
+
 const config = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   clientKey: process.env.REACT_APP_CLIENT_KEY,
@@ -46,7 +43,7 @@ const handleLogout = async () => {
     setUserInfo(null);
   }
 };
-//
+
 export default function Header() {
   const [userInfo, setUserInfo] = useState(null);
 
@@ -82,10 +79,6 @@ export default function Header() {
             <button onClick={() => handleLogout()}>Logout</button>
           </div>
         )}
-      </div>
-
-      <div className="flex-none gap-4 items-center">
-        <ConnectButton className="p-5 border-b-8  flex flex-row justify-between items-center float-right" />
       </div>
     </nav>
   );
